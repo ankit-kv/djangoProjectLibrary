@@ -1,0 +1,41 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+<div class="login_block">
+    <div class="border rounded p-2 shadow" style="width: 400px;">
+        {% for message in messages %}
+        <div class="alert {{message}}" role="alert">
+            {% if message.tags == "error" %}
+            Invalid Credentials
+            {% else %}
+            Logout Successful
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div class="text-center mb-4 avtar"><img class= "userimg" src="{% static 'images/user.jpg' %}" alt="user"></div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Username</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="username" required>
+            </div>
+            <div class="mb-4">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Remember me</label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+            <div class="mb-3">
+                Forget Password <a class="" href="">Click here</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+{% endblock %}

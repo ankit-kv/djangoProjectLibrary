@@ -1,0 +1,14 @@
+.image{
+    width: 20%;
+}
+@media only screen and (max-width: 468px) {
+    .image{
+        width: 50%;
+    }
+}
+.cardh{
+    transition: 0.2s;
+}
+.cardh:hover{
+    transform: scale(0.9);
+}

@@ -1,0 +1,79 @@
+{% extends 'home-base.html'%}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-center">
+        {% for message in messages %}
+        <div class="alert alert-danger w-50"><i class="fa-solid fa-triangle-exclamation m-2"></i>{{message}}</div>
+        {% endfor %}
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row mb-3 justify-content-center">
+            <label for="p_name" class="col-sm-2 col-form-label">Product Name:</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="p_name" name="p_name" required>
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <label for="p_disc" class="col-sm-2 col-form-label">Product Description:</label>
+            <div class="col-sm-5">
+                <textarea class="form-control" name="p_description" id="p_disc"></textarea>
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <label for="c_name" class="col-sm-2 col-form-label">Choose Category:</label>
+            <div class="col-sm-5">
+                <select class="form-select" aria-label="Default select example" id="c_name" name="c_name">
+                    <option selected>Select Category</option>
+                    {% for category in categories %}
+                    <option value={{category.id}}>{{category.c_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3 text-center justify-content-center">
+            <div class="col-sm-5">
+                <button type="submit" class="btn btn-primary" style="width: 80px;">
+                    Add </button>
+            </div>
+        </div>
+    </form>
+</div>
+<hr>
+<div class="container m-5">
+    <h2>List of Products</h2>
+    <table class="table text-center border rounded">
+        <thead>
+            <tr>
+                <th scope="col">Sr. No.</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Description</th>
+                <th scope="col">Product Category</th>
+                <th scope="col">Edit/Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td scope="row">{{forloop.counter}}</td>
+                <td>{{product.p_name}}</td>
+                <td>{{product.p_description}}</td>
+                <td>{{product.c_name.c_name}}</td>
+                <td>
+                    <a data-bs-toggle="modal" data-bs-target="#update{{product.id}}" class="m-2"><i
+                            class="fa-solid fa-pen-to-square"></i></a>
+                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{product.id}}" class="m-2"><i
+                            class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+            {% include 'delete-product.html'%}
+            {% include 'update-product.html'%}
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
