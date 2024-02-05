@@ -9,7 +9,6 @@
             {% if user.is_authenticated %}
             <form method="post" action="{% url 'logout_page' %}">
                 {% csrf_token %}
-                
                 <button class="btn btn-light me-2 " type="submit">Logout</button>
             </form>
             {% endif %}

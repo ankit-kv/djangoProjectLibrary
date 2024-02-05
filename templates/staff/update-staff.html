@@ -1,0 +1,33 @@
+<div class="modal fade" id="update{{staff.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Staff Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/update-staff/{{staff.id}}/" method="post">
+                {% csrf_token %}
+                <div class="model-body p-2">
+                    <label for="staff_name" class="col-form-label">Staff Name:</label>
+                    <input type="text" class="form-control" id="staff_name" name="staff_name" value="{{staff.staff_name}}">
+                    <label for="staff_email" class="col-form-label">Staff Email:</label>
+                    <input type="email" class="form-control" id="staff_email" name="staff_email" required value="{{staff.staff_email}}">
+                    <label for="staff_phone" class="col-form-label">Staff Phone no:</label>
+                    <input type="tel" pattern="[0-9]{10}" class="form-control" id="staff_phone" name="staff_phone" maxlength="10" value="{{staff.staff_phone}}">
+                    <label for="staff_section" class="col-form-label">Choose Section:</label>
+                    <select class="form-select" aria-label="Default select example" id="staff_section" name="staff_section" required>
+                        <option selected>{{staff.staff_section}}</option>
+                        {% for section in sections %}
+                        <option>{{section.section_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

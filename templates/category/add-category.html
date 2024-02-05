@@ -22,9 +22,15 @@
     </div>
   </form>
 </div>
-<div class="container m-5">
-  <h2>List of Categories</h2>
-  <table class="table text-center border rounded">
+<div class="container m-5 table-responsive">
+  <div class="d-flex my-3 justify-content-between">
+    <h3>List of Categories</h3>
+    <form class="d-flex" role="search" method="get">
+      <input class="form-control me-2" type="search" placeholder="Search Category" aria-label="Search" name="search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+  <table class="table text-center border rounded ">
     <thead>
       <tr>
         <th scope="col">Sr. No.</th>
@@ -40,12 +46,12 @@
         <td>
           <a data-bs-toggle="modal" data-bs-target="#update{{category.id}}" class="m-2"><i
               class="fa-solid fa-pen-to-square"></i></a>
-          <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{category.id}}" class="m-2"><i
+          <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{category.id}}" class="m-2 text-danger"><i
               class="fa-solid fa-trash"></i></a>
         </td>
       </tr>
-      {% include 'delete-category.html'%}
-      {% include 'update-category.html'%}
+      {% include 'category/delete-category.html'%}
+      {% include 'category/update-category.html'%}
       {% endfor %}
     </tbody>
   </table>

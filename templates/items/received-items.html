@@ -1,0 +1,256 @@
+{% extends 'home-base.html'%}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+    <table style="display: none;" id="table-data">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Description</th>
+                <th scope="col">Product Category</th>
+                <th scope="col">Balance Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td scope="row">{{product.id}}</td>
+                <td>{{product.p_name}}</td>
+                <td>{{product.p_description}}</td>
+                <td>{{product.c_name.c_name}}</td>
+                <td>{{product.quantity}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <div class="d-flex justify-content-center">
+        {% for message in messages %}
+        <div class="alert alert-danger w-50"><i class="fa-solid fa-triangle-exclamation m-2"></i>{{message}}</div>
+        {% endfor %}
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row mb-3 justify-content-center">
+            <label for="p_name" class="col-sm-2 col-form-label">Product Name:</label>
+            <div class="col-sm-5">
+                <select class="form-select" aria-label="Default select example" id="p_name" name="product"
+                    onchange="getSelectedValue()">
+                    <option selected value="0">Select Product</option>
+                    {% for product in products %}
+                    <option value={{product.id}}>{{product.p_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div id="display" style="display: none;">
+            <div class="row mb-3 justify-content-center">
+                <label for="p_disc" class="col-sm-2 col-form-label">Product Description:</label>
+                <div class="col-sm-5">
+                    <textarea class="form-control" id="p_disc" disabled></textarea>
+                </div>
+            </div>
+            <div class="row mb-3 justify-content-center">
+                <label for="p_disc" class="col-sm-2 col-form-label">Category:</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="c_name" disabled>
+                </div>
+            </div>
+            <div class="row mb-3 justify-content-center">
+                <label for="b_qua" class="col-sm-2 col-form-label">Balance Quantity:</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="b_qua" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <label for="received_quantity" class="col-sm-2 col-form-label">Quantity:</label>
+            <div class="col-sm-5">
+                <input type="number" class="form-control" id="received_quantity" name="received_quantity" required>
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <label for="flexRadioDefault1" class="col-sm-2 col-form-label">Issue to:</label>
+            <div class="col-sm-5">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ss" id="staff">
+                    <label class="form-check-label" for="staff">
+                        Staff
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ss" id="section">
+                    <label class="form-check-label" for="section">
+                        Section
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="ss" id="vendor">
+                    <label class="form-check-label" for="vendor">
+                        Vendor
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div id="selectStaff" style="display: none;">
+            <div class="row mb-3 justify-content-center">
+                <label for="received_from_staff" class="col-sm-2 col-form-label">Staff:</label>
+                <div class="col-sm-5">
+                    <select class="form-select" aria-label="Default select example" id="received_from_staff"
+                        name="received_from_staff">
+                        <option selected value="staff">Select Staff</option>
+                        {% for staff in staffs %}
+                        <option value={{staff.id}}>{{staff.staff_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="selectSection" style="display: none;">
+            <div class="row mb-3 justify-content-center">
+                <label for="received_from_section" class="col-sm-2 col-form-label">Section:</label>
+                <div class="col-sm-5">
+                    <select class="form-select" aria-label="Default select example" id="received_from_section"
+                        name="received_from_section">
+                        <option selected value="section">Select Section</option>
+                        {% for section in sections %}
+                        <option value={{section.id}}>{{section.section_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="selectVendor" style="display: none;">
+            <div class="row mb-3 justify-content-center">
+                <label for="recieved_from_vendor" class="col-sm-2 col-form-label">Vendor Details:</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="received_from_vendor" name="received_from_vendor">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3 text-center justify-content-center">
+            <div class="col-sm-5">
+                <button type="submit" class="btn btn-primary">
+                    Receive Item </button>
+            </div>
+        </div>
+    </form>
+</div>
+<hr>
+
+
+
+<div class="container m-5 table-responsive">
+    <h2>Recent Recieved Items</h2>
+    <table class="table text-center border rounded ">
+        <thead>
+            <tr>
+                <th scope="col">Sr. No.</th>
+                <th scope="col">Transaction No.</th>
+                <th scope="col">Product</th>
+                <th scope="col">Product Category</th>
+                <th scope="col">Recieved From</th>
+                <th scope="col">Recieved Quantity</th>
+                <th scope="col">Recieved By</th>
+                <th scope="col">Recieved Date-Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td scope="row">{{forloop.counter}}</td>
+                <td>{{transaction.transaction_id}}</td>
+                <td>{{transaction.product}}</td>
+                <td>{{transaction.category}}</td>
+                <td>{{transaction.received_from}}</td>
+                <td>{{transaction.received_quantity}}</td>
+                <td>{{transaction.user}}</td>
+                <td>{{transaction.t_date_time}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    //function to get data from table
+    function getDataFromTable() {
+
+        var table = document.getElementById("table-data");
+        var data = [];
+        for (var i = 1; i < table.rows.length; i++) {
+            var row = table.rows[i];
+            var rowData = {
+                id: row.cells[0].innerText,
+                name: row.cells[1].innerText,
+                disc: row.cells[2].innerText,
+                cat: row.cells[3].innerText,
+                qua: row.cells[4].innerText,
+            };
+            data.push(rowData);
+        }
+        return data;
+    }
+    //function to get the selected value and show the other details
+    function getSelectedValue() {
+        var data = getDataFromTable();
+        var selectElement = document.getElementById("p_name");
+        var Description = document.getElementById("p_disc");
+        var category = document.getElementById("c_name");
+        var balance_quantity = document.getElementById("b_qua");
+        var element = document.getElementById("display");
+        var selectedValue = selectElement.value;
+        if (selectedValue == "0") {
+            element.style.display = "none";
+        } else {
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                if (item.id == selectedValue) {
+                    element.style.display = "block";
+                    Description.value = item.disc;
+                    category.value = item.cat;
+                    balance_quantity.value = item.qua;
+                }
+
+            }
+        }
+
+    }
+
+    const staff = document.getElementById('staff');
+    const section = document.getElementById('section');
+    const vendor = document.getElementById('vendor');
+    const selectStaff = document.getElementById('selectStaff');
+    const selectSection = document.getElementById('selectSection');
+    const selectVendor = document.getElementById('selectVendor');
+
+    // Add event listeners to the radio buttons
+    staff.addEventListener('change', toggleDiv);
+    section.addEventListener('change', toggleDiv);
+    vendor.addEventListener('change', toggleDiv);
+
+    // Function to toggle the display property of the div
+    function toggleDiv() {
+        if (staff.checked) {
+            selectStaff.style.display = 'block';
+            selectSection.style.display = 'none';
+            selectVendor.style.display = 'none';
+        }
+        if (section.checked) {
+            selectStaff.style.display = 'none';
+            selectSection.style.display = 'block';
+            selectVendor.style.display = 'none';
+        }
+        if (vendor.checked) {
+            selectStaff.style.display = 'none';
+            selectSection.style.display = 'none';
+            selectVendor.style.display = 'block';
+        }
+
+    }
+</script>
+{% endblock %}

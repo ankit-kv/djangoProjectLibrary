@@ -1,0 +1,55 @@
+{% extends 'home-base.html'%}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5 text-center">
+  <div class="d-flex justify-content-center">
+    {% for message in messages %}
+    <div class="alert alert-danger w-50"><i class="fa-solid fa-triangle-exclamation m-2"></i>{{message}}</div>
+    {% endfor %}
+  </div>
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="row mb-3 justify-content-center">
+      <label for="section_name" class="col-sm-2 col-form-label">Section:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="section_name" name="section_name" required>
+      </div>
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-primary" style="width: 80px;">
+          Add </button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="container m-5 table-responsive">
+  <h2>List of Sections</h2>
+  <table class="table text-center border rounded ">
+    <thead>
+      <tr>
+        <th scope="col">Sr. No.</th>
+        <th scope="col">Section Name</th>
+        <th scope="col">Edit/Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for section in sections %}
+      <tr>
+        <td scope="row">{{forloop.counter}}</td>
+        <td><a href="{% url 'section_details' section.id %}" style="text-decoration: none;">{{section.section_name}}</a></td>
+        <td>
+          <a data-bs-toggle="modal" data-bs-target="#update{{section.id}}" class="m-2"><i
+              class="fa-solid fa-pen-to-square"></i></a>
+          <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{section.id}}" class="m-2 text-danger"><i
+              class="fa-solid fa-trash"></i></a>
+        </td>
+      </tr>
+      {% include 'section/delete-section.html'%}
+      {% include 'section/update-section.html'%}
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'home-base.html'%}
+{% load static %}
+{% block content %}
+
+<div class="conatiner mt-5">
+    <h2>{{section.section_name}}</h2>
+    <div class="container m-5 table-responsive">
+        <h3>Issued Items</h3>
+        <table class="table text-center border rounded ">
+            <thead>
+                <tr>
+                    <th scope="col">Sr. No.</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Product Categry</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rec in recipients %}
+                <tr>
+                    <td scope="row">{{forloop.counter}}</td>
+                    <td>{{rec.product.p_name}}</td>
+                    <td>{{rec.product.c_name.c_name}}</td>
+                    <td>{{rec.rec_quantity}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    </div>
+
+</div>
+
+
+{% endblock %}
