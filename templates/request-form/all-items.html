@@ -1,0 +1,37 @@
+{% extends 'normal-base.html'%}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5 table-responsive">
+    <div class="d-flex my-3 justify-content-between">
+        <h3>List of All Items</h3>
+        <form class="d-flex" role="search" method="get">
+          <input class="form-control me-2" type="search" placeholder="Search Products" aria-label="Search" name="search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    <hr>
+    <table class="table text-center border rounded ">
+        <thead>
+            <tr>
+                <th scope="col">Sr. No.</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Description</th>
+                <th scope="col">Product Category</th>
+                <th scope="col">Balance Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td scope="row">{{forloop.counter}}</td>
+                <td>{{product.p_name}}</td>
+                <td>{{product.p_description}}</td>
+                <td>{{product.c_name.c_name}}</td>
+                <td>{{product.quantity}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

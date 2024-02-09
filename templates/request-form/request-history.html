@@ -1,0 +1,32 @@
+{% extends 'normal-base.html'%}
+{% block content%}
+
+<div class="container my-5">
+    <table class="table text-center border rounded ">
+        <thead>
+            <tr>
+                <th scope="col">Sr. No.</th>
+                <th scope="col">Request Id</th>
+                <th scope="col">Request Date</th>
+                <th scope="col">Product Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for items in request_items %}
+            <tr>
+                <td scope="row">{{forloop.counter}}</td>
+                <td><a href="{% url 'request_detail' items.tracking_id %}" style="text-decoration-line: none;">{{items.tracking_id}}</a></td>
+                <td>{{items.date}}</td>
+                <td>{{items.count}}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+{% endblock %}

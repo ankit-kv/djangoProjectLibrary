@@ -1,0 +1,40 @@
+{% extends 'home-base.html'%}
+{% block content%}
+
+<div class="container my-5">
+    <div class="container fs-5 mb-5 p-2 card">
+        <div class="row row-cols-2">
+          <div class="col mb-3"> {%if first %}
+            <b>Request From: </b> {{first.user.first_name}} {{first.user.last_name}}</div>
+          <div class="col"> <b>Request Date: </b> {{first.date_time}}</div>
+          <div class="col"><b>Request Id: </b> {{first.tracking_id}}</div>
+          {% endif %}
+        </div>
+      </div>
+    <h4>Request Details</h4>
+    <table class="table text-center border rounded ">
+        <thead>
+            <tr>
+                <th scope="col">Sr. No.</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Available in Store</th>
+                <th scope="col">Balance in Store</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for items in request_items %}
+            <tr>
+                <td scope="row">{{forloop.counter}}</td>
+                <td>{{items.product_name}}</td>
+                <td>{{items.quantity}}</td>
+                <td>{{items.available}}</td>
+                <td>{{items.balance}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

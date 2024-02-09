@@ -3,11 +3,14 @@
 {% block content %}
 
 <div class="conatiner mt-5">
-    <h2>{{staff.staff_name}}</h2>
-    <div class="container m-5 table-responsive">
-        <h3>Issued Items</h3>
-        <table class="table text-center border rounded ">
-            <thead>
+    <div class="mx-5">
+        <h3># {{staff.staff_name}} ({{staff.staff_section}})</h3>
+        <h3></h3>
+    </div>
+    <div class="container my-5 table-responsive">
+        <h3>Items Issued</h3>
+        <table class="table text-center border rounded">
+            <thead >
                 <tr>
                     <th scope="col">Sr. No.</th>
                     <th scope="col">Product</th>

@@ -1,0 +1,29 @@
+{% extends 'normal-base.html'%}
+{% block content%}
+
+<div class="container my-5">
+    <h3>Request Details</h3>
+    <table class="table text-center border rounded ">
+        <thead>
+            <tr>
+                <th scope="col">Sr. No.</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Request Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for items in request_items %}
+            <tr>
+                <td scope="row">{{forloop.counter}}</td>
+                <td>{{items.product_name}}</td>
+                <td>{{items.quantity}}</td>
+                <td>{{items.date_time}}</td>    
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

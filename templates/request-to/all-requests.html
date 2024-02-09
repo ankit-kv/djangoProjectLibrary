@@ -1,0 +1,34 @@
+{% extends 'home-base.html'%}
+{% block content%}
+
+<div class="container my-5">
+    <table class="table text-center border rounded ">
+        <thead>
+            <tr>
+                <th scope="col">Sr. No.</th>
+                <th scope="col">Request Id</th>
+                <th scope="col">Request Date</th>
+                <th scope="col">Product Count</th>
+                <th scope="col">Request From</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tracking_info in tracking_info_list %}
+            <tr>
+                <td scope="row">{{forloop.counter}}</td>
+                <td><a href="{% url 'show_request_detail' tracking_info.tracking_id %}" style="text-decoration-line: none;">{{ tracking_info.tracking_id }}</td>
+                <td>{{ tracking_info.first_row_datetime }}</td>
+                <td>{{ tracking_info.total_count }}</td>
+                <td>{{ tracking_info.first_row_user.first_name }} {{ tracking_info.first_row_user.last_name }}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+{% endblock %}

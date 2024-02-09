@@ -55,4 +55,12 @@ urlpatterns = [
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+    path('request-items/', views.request_items, name='request_items'),
+    path('items-in-store', views.items_in_store, name='items_in_store'),
+    path('request-history/', views.request_history, name='request_history'),
+    path('request-detail/<str:t_id>/', views.request_detail, name='request_detail'),
+
+    path('all-requests/', views.all_requests, name='all_requests'),
+    path('show-request-detail/<str:t_id>/', views.show_request_detail, name='show_request_detail'),
 ]

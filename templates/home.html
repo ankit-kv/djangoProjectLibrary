@@ -6,6 +6,14 @@
     <div>
         <h1>Welcome to Store Managment System</h1>
         <hr>
+        {% if messages_for_admin %}
+        <script>
+            // Display popup using JavaScript
+            window.onload = function () {
+                alert("{{ messages_for_admin|safe }}");
+            }
+        </script>
+        {% endif %}
     </div>
     <div>
         <div class="container text-center">
@@ -34,7 +42,7 @@
             </div>
           </div>
     </div>
-    <div class="container m-5 table-responsive">
+    <div class="container my-5 table-responsive">
       <h2>Recent Transactions</h2>
       <table class=" table text-center border rounded">
           <thead>
@@ -44,6 +52,7 @@
                   <th scope="col">Product</th>
                   <th scope="col">Product Categry</th>
                   <th scope="col">Recieved Quantity</th>
+                  <th scope="col">Recieved From</th>
                   <th scope="col">Issued Quantity</th>
                   <th scope="col">Issued To</th>
                   <th scope="col">Issued/Recieved By</th>
@@ -56,8 +65,9 @@
                   <td scope="row">{{forloop.counter}}</td>
                   <td>{{transaction.transaction_id}}</td>
                   <td>{{transaction.product}}</td>
-                  <td>{{transaction.product_disc}}</td>
+                  <td>{{transaction.category}}</td>
                   <td>{{transaction.received_quantity}}</td>
+                  <td>{{transaction.received_from}}</td>
                   <td>{{transaction.issued_quantity}}</td>
                   <td>{{transaction.issued_to}}</td>
                   <td>{{transaction.user}}</td>
@@ -68,7 +78,7 @@
       </table>
       
   </div>
-  <div class="d-flex m-5 justify-content-between">
+  <div class="d-flex m-5 justify-content-between text-center">
     <div style="width: 25%;">
         <h3> Top Issued Products</h3>
         <canvas id="myChart1"></canvas>
